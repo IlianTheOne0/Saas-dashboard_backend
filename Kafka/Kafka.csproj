@@ -1,15 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KafkaConsumer\KafkaConsumer.csproj" />
-    <ProjectReference Include="..\KafkaProducer\KafkaProducer.csproj" />
+    <PackageReference Include="Confluent.Kafka" Version="2.12.0" />
   </ItemGroup>
 
 </Project>
