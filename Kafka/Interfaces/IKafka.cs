@@ -2,5 +2,5 @@
 
 interface IKafka
 {
-    void SendMessage(string message);
+    Task SendMessage(string message);
 }

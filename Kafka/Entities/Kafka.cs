@@ -4,12 +4,12 @@ namespace Kafka.Entities;
 
 public class Kafka : IKafka
 {
-    private readonly Producer _producer = null!;
+    private readonly KafkaProducer _producer = null!;
 
-    public Kafka(Producer producer)
+    public Kafka(KafkaProducer producer)
     {
         _producer = producer ?? throw new ArgumentNullException(nameof(producer));
     }
 
-    public void SendMessage(string message) => _producer.SendMessageAsync(message);
+    public Task SendMessage(string message) => _producer.SendMessageAsync(message);
 }

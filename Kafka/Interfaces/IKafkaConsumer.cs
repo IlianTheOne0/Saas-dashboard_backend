@@ -1,6 +1,6 @@
 ﻿namespace Kafka.Interfaces;
 
-interface IConsumer
+interface IKafkaConsumer
 {
     Task Start(CancellationToken cancellationToken);
     void Dispose();
