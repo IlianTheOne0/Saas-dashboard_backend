@@ -6,7 +6,7 @@ using Confluent.Kafka;
 
 public class KafkaProducer : IKafkaProducer, IDisposable
 {
-    private readonly Confluent.Kafka.IProducer<Null, string> _producer;
+    private readonly IProducer<Null, string> _producer;
     private readonly string _topic;
     public KafkaProducer(ProducerConfig config, string topic)
     {
