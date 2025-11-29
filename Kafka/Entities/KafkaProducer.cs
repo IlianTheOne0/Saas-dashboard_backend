@@ -45,4 +45,6 @@ public class KafkaProducer : IKafkaProducer, IDisposable
 
         _producer?.Dispose();
     }
+
+    public string GetTopic() => _topic;
 }

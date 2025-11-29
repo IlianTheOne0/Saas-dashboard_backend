@@ -26,7 +26,7 @@ internal static class Decryptor
                 {
                     using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
                     {
-                        using (StreamReader sr = new StreamReader(cs)) { return sr.ReadToEnd(); }
+                        using (StreamReader sr = new StreamReader(cs)) { string response = sr.ReadToEnd(); return response; }
                     }
                 }
             }
@@ -35,5 +35,5 @@ internal static class Decryptor
         catch (CryptographicException error) { throw new ArgumentException("Decryption failed. Key/IV mismatch or data corruption.", error); }
     }
 
-    public static string Execute(string key, string iv, string cipherText) => _decrypt(key, iv, cipherText);
+    public static string Execute(string key, string iv, string cipherText) { string response = _decrypt(key, iv, cipherText); return response; }
 }
