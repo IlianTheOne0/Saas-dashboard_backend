@@ -8,12 +8,12 @@ internal class KafkaConsumer
     private readonly ConsumerConfig _consumerConfig = new ConsumerConfig
     {
         BootstrapServers = "localhost:9092",
-        GroupId = "backend-worker-group",
+        GroupId = "database",
         AutoOffsetReset = AutoOffsetReset.Earliest,
         EnableAutoCommit = true,
         SessionTimeoutMs = 6000
     };
-    private readonly string _topic = "default-topic";
+    private readonly string _topic = "database-topic";
 
     public ConsumerConfig GetConsumerConfig() => _consumerConfig;
     public string GetTopic() => _topic;
@@ -30,7 +30,7 @@ internal class KafkaProducer
         LingerMs = 5,
         BatchSize = 32 * 1024
     };
-    private readonly string _topic = "default-topic-answers";
+    private readonly string _topic = "database-topic-answers";
 
     public ProducerConfig GetProducerConfig() => _producerConfig;
     public string GetTopic() => _topic;
