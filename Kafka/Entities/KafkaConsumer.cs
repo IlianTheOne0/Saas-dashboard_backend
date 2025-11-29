@@ -1,6 +1,7 @@
 ﻿using Kafka.Interfaces;
 
 namespace Kafka.Entities;
+using Utils;
 
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ using Confluent.Kafka.Admin;
 
 public class KafkaConsumer : IKafkaConsumer, IDisposable
 {
+    private const string TAG = "KAFKA-CONSUMER";
+
     private IConsumer<Ignore, string>? _consumer;
 
     private ConsumerConfig _config = null!;
@@ -26,6 +29,7 @@ public class KafkaConsumer : IKafkaConsumer, IDisposable
         _topic = topic;
         _messageHandler = messageHandler;
 
+        Logger.Debug(TAG, $"Building Consumer for Group: {_config.GroupId}");
         _consumer = new ConsumerBuilder<Ignore, string>(_config).Build();
     }
 
@@ -34,6 +38,7 @@ public class KafkaConsumer : IKafkaConsumer, IDisposable
     (
         async () =>
         {
+            Logger.Info(TAG, "Starting consumption loop...");
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
@@ -41,7 +46,7 @@ public class KafkaConsumer : IKafkaConsumer, IDisposable
                     await CreateTopicIfNotExists();
 
                     _consumer!.Subscribe(_topic);
-                    Console.WriteLine($"Consumer subscribed to: {_topic}");
+                    Logger.Info(TAG, $"Subscribed to topic: {_topic}");
 
                     while (!cancellationToken.IsCancellationRequested)
                     {
@@ -51,29 +56,21 @@ public class KafkaConsumer : IKafkaConsumer, IDisposable
 
                             if (result != null)
                             {
-                                Console.WriteLine($"[KAFKA RAW RECEIVED] Key: {result.Message.Key}, Value: {result.Message.Value}");
+                                Logger.Info(TAG, $"[RECV] Offset: {result.TopicPartitionOffset} | Key: {result.Message.Key} | Size: {result.Message.Value?.Length ?? 0} bytes");
                                 await _messageHandler(result.Message.Value);
                             }
                         }
                         catch (ConsumeException error)
                         {
-                            Console.WriteLine($"Error consuming message: {error.Error.Reason}. Retrying...");
+                            Logger.Warn(TAG, $"Consume error: {error.Error.Reason} (Code: {error.Error.Code}). Retrying in 1s...");
                             await Task.Delay(1000, cancellationToken);
                         }
                     }
                 }
-                catch (OperationCanceledException)
-                {
-                    Console.WriteLine("Consumer operation canceled.");
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"FATAL ERROR in Consumer Loop: {ex.Message}");
-                    Console.WriteLine("Retrying connection in 5 seconds...");
-                    await Task.Delay(5000, cancellationToken);
-                }
+                catch (OperationCanceledException) { Logger.Info(TAG, "Consumer operation canceled."); break; }
+                catch (Exception ex) { Logger.Fatal(TAG, "FATAL ERROR in Consumer Loop. Retrying in 5s...", ex); await Task.Delay(5000, cancellationToken); }
             }
+            Logger.Info(TAG, "Closing consumer connection...");
             _consumer!.Close();
         },
         cancellationToken
@@ -81,6 +78,7 @@ public class KafkaConsumer : IKafkaConsumer, IDisposable
 
     private async Task CreateTopicIfNotExists()
     {
+        Logger.Debug(TAG, $"Checking topic existence: {_topic}");
         var admimConfig = new AdminClientConfig { BootstrapServers = _config.BootstrapServers };
 
         using var adminClient = new AdminClientBuilder(admimConfig).Build();
@@ -93,12 +91,12 @@ public class KafkaConsumer : IKafkaConsumer, IDisposable
                     new TopicSpecification { Name = _topic, NumPartitions = 1, ReplicationFactor = 1 }
                 }
             );
-            Console.WriteLine($"Topic {_topic} created successfully!");
+            Logger.Info(TAG, $"Topic {_topic} created successfully!");
         }
         catch (CreateTopicsException error)
         {
-            if(error.Results[0].Error.Code == ErrorCode.TopicAlreadyExists) { }
-            else { Console.WriteLine($"An error occured creating topic {_topic}: {error.Results[0].Error.Reason}"); throw; }
+            if (error.Results[0].Error.Code == ErrorCode.TopicAlreadyExists) { Logger.Debug(TAG, $"Topic {_topic} already exists."); }
+            else { Logger.Error(TAG, $"Error creating topic {_topic}", new Exception(error.Results[0].Error.Reason)); throw; }
         }
     }
 
@@ -106,8 +104,8 @@ public class KafkaConsumer : IKafkaConsumer, IDisposable
     {
         if (_consumer != null)
         {
-            try { _consumer.Close(); }
-            catch (Exception error) { Console.WriteLine($"Error during consumer close: {error.Message}"); }
+            try { Logger.Debug(TAG, "Disposing Consumer..."); _consumer.Close(); }
+            catch (Exception error) { Logger.Error(TAG, "Error during consumer close", error); }
             finally { _consumer.Dispose(); _consumer = null; }
         }
     }
