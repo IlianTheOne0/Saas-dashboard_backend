@@ -1,7 +1,6 @@
 ﻿namespace Base.Services.SSecurity;
 
 using System.Security.Cryptography;
-using System.Text;
 
 internal static class Decryptor
 {
@@ -9,12 +8,17 @@ internal static class Decryptor
     {
         if (key == null || iv == null || string.IsNullOrEmpty(cipherText)) { throw new ArgumentNullException("Arguments for encryption cannot be null"); }
 
+        cipherText = cipherText.Trim('"').Trim();
+
         try
         {
             using (Aes aes = Aes.Create())
             {
-                aes.Key = Encoding.UTF8.GetBytes(key);
-                aes.IV = Encoding.UTF8.GetBytes(iv);
+                aes.Key = Convert.FromHexString(key);
+                aes.IV = Convert.FromHexString(iv);
+
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
 
                 ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
@@ -27,7 +31,8 @@ internal static class Decryptor
                 }
             }
         }
-        catch (FormatException error) { throw new ArgumentException("The provided plainText is not a valid Base64 string", error); }
+        catch (FormatException error) { throw new ArgumentException($"Invalid Base64: '{cipherText}'", error); }
+        catch (CryptographicException error) { throw new ArgumentException("Decryption failed. Key/IV mismatch or data corruption.", error); }
     }
 
     public static string Execute(string key, string iv, string cipherText) => _decrypt(key, iv, cipherText);
