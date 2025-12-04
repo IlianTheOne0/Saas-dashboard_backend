@@ -16,7 +16,7 @@ public class Worker : Base
 
     private string CreateMUnitResponse(string eventName, object message)
     {
-        Logger.Warn(TAG, $"Generating Error Response: {message}");
+        Logger.Warn(TAG, $"Generating Response: {message}");
         var wrapper = new MUnit() { Event = eventName, Data = JsonSerializer.SerializeToElement(message) };
         return JsonSerializer.Serialize(wrapper);
     }
@@ -47,7 +47,7 @@ public class Worker : Base
         catch (Exception error) { Logger.Error(TAG, "Internal Processing Error", error); return CreateMUnitResponse("error", "Internal server error"); }
     }
 
-    public Worker(ISupabaseRepositoryAuth RAuth)
+    public Worker(ISupabaseRepositoryAuth RAuth, ISupabaseRepositoryUser RUser)
     {
         Logger.Debug(TAG, "Registering Handlers...");
 
@@ -55,6 +55,8 @@ public class Worker : Base
         AuthLoginHandler AuthLoginHandler = new AuthLoginHandler(RAuth);
         AuthRecoveryPasswordHandler AuthRecoveryPasswordHandler = new AuthRecoveryPasswordHandler(RAuth);
         AuthNewPasswordHandler AuthNewPasswordHandler = new AuthNewPasswordHandler(RAuth);
+
+        UserFetchProfileHandler UserFetchProfileHandler = new UserFetchProfileHandler(RUser);
 
         _handlers = new Dictionary<string, Func<JsonElement, Task<string>>>
         {
@@ -92,6 +94,16 @@ public class Worker : Base
                     Logger.Debug(TAG, "Executing 'new_password'...");
                     var response = await AuthNewPasswordHandler.Execute(data);
                     return CreateMUnitResponse("new_password-answer", response);
+                }
+            },
+
+            {
+                "fetch_profile",
+                async (data) =>
+                {
+                    Logger.Debug(TAG, "Executing 'fetch_profile'...");
+                    var response = await UserFetchProfileHandler.Execute(data);
+                    return CreateMUnitResponse("fetch_profile-answer", response);
                 }
             }
         };

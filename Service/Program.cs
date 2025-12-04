@@ -26,7 +26,7 @@ internal class Program
             Logger.Info(TAG, "Supabase Ready.");
 
             Logger.Info(TAG, "Initializing Worker...");
-            var worker = new Work(RSupabase);
+            var worker = new Work(RSupabase, RSupabase);
 
             Logger.Info(TAG, "Starting Worker Run Loop...");
             await worker.Run();

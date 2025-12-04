@@ -2,6 +2,6 @@
 
 interface IKafkaProducer
 {
-    Task SendMessageAsync(string message);
+    Task SendMessage(string message);
     void Dispose();
 }

@@ -11,4 +11,7 @@ public class MSupabaseProfile : BaseModel
 
     [Column("name")]
     public string? Name { get; set; }
+
+    [Column("avatar_url")]
+    public string? AvatarUrl { get; set; }
 }
