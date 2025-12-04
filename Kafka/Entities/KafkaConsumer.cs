@@ -109,4 +109,6 @@ public class KafkaConsumer : IKafkaConsumer, IDisposable
             finally { _consumer.Dispose(); _consumer = null; }
         }
     }
+
+    public string GetTopic() => _topic;
 }

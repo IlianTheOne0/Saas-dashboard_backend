@@ -1,7 +1,8 @@
 ﻿namespace Kafka.Interfaces;
 
-interface IKafkaProducer
+public interface IKafkaProducer
 {
-    Task SendMessageAsync(string message);
+    Task SendMessage(string message);
     void Dispose();
+    string GetTopic();
 }
