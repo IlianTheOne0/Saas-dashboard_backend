@@ -26,10 +26,10 @@ public partial class SupabaseRepository : ISupabaseRepositoryUser
 
             var profileResponse = await SupabaseConnection.SupabaseClient.From<MSupabaseProfile>().Where(profile => profile.Id == userId).Single();
             if (profileResponse == null) { Logger.Warn(TAG_USER, "User exists in Auth but no Profile found in database."); return null; }
-            
+
             Logger.Info(TAG_USER, "Profile fetched successfully.");
 
-            return new PersonalDataResultDto { Id = userId, Email = userEmail, Name = profileResponse.Name };
+            return new PersonalDataResultDto { Id = userId, Email = userEmail, Name = profileResponse.Name, AvatarUrl = profileResponse.AvatarUrl };
         }
         catch (Exception error) { Logger.Error(TAG_USER, $"Fetching the user's profile failed: {error.Message}"); throw; }
     }

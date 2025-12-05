@@ -51,13 +51,13 @@ public class AuthLoginHandler : AHandler, IHandler
             AuthDto data = _execute<AuthDto>(json);
             Logger.Debug(TAG, $"Parsed DTO for Email: {data.email}");
 
-            Session? session = await _repository.LoginUser(data.email, data.password);
+            string? accessToken = await _repository.LoginUser(data.email, data.password);
 
-            if (session != null)
+            if (accessToken != null)
             {
                 Logger.Info(TAG, "Success!");
 
-                return new MResponse { status = "Success", message = "User registered successfully", data = JsonSerializer.SerializeToElement(session) };
+                return new MResponse { status = "Success", message = "User registered successfully", data = JsonSerializer.SerializeToElement(accessToken) };
             }
             else { Logger.Warn(TAG, "Login failed."); return new MResponse { status = "Error", message = "Logining failed (unknown reason)" }; }
         }

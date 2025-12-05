@@ -52,15 +52,15 @@ public partial class SupabaseRepository : ISupabaseRepositoryAuth
             throw new Exception($"Registration failed and was rolled back: {error.Message}");
         }
     }
-    public async Task<Session?> LoginUser(string email, string password)
+    public async Task<string?> LoginUser(string email, string password)
     {
         try
         {
             Logger.Debug(TAG_AUTH, $"Attempting Login for: {email}");
 
-            var session = await SupabaseConnection!.SupabaseClient.Auth.SignIn(email, password);
+            Session? session = await SupabaseConnection!.SupabaseClient.Auth.SignIn(email, password);
 
-            if (session != null && session.User != null) { Logger.Debug(TAG_AUTH, $"Login Result: success!"); return session; }
+            if (session != null && session.User != null) { Logger.Debug(TAG_AUTH, $"Login Result: success!"); return session.AccessToken; }
 
             Logger.Debug(TAG_AUTH, $"Login Result: failed!"); 
             return null;

@@ -25,7 +25,6 @@ public class UserFetchProfileHandler : AHandler, IHandler
             if (string.IsNullOrEmpty(data.AccessToken)) { Logger.Warn(TAG, "Session/Access Token is missing."); return new MResponse { status = "Error", message = "Session token required" }; }
 
             Logger.Debug(TAG, "Fetching profile from repository...");
-
             PersonalDataResultDto? result = await _repository.FetchProfile(data.AccessToken);
 
             if (result != null)
