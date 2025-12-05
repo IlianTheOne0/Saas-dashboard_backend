@@ -44,7 +44,7 @@ public abstract class Base
                 string encryptedResponse = SecurityService.Encrpyt(planeResponse);
 
                 Logger.Info(TAG, "Sending response to Kafka...");
-                await _producer.SendMessageAsync(encryptedResponse);
+                await _producer.SendMessage(encryptedResponse);
                 Logger.Info(TAG, "Response sent successfully.");
             }
             else { Logger.Warn(TAG, "No response generated or Producer is null. Skipping reply."); }
