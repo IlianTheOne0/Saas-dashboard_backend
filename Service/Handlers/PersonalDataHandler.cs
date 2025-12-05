@@ -17,7 +17,7 @@ public class PersonalDataHandler : AHandler, IHandler, IPersonalDataHandler
 
     public PersonalDataHandler(Func<string, string, Task> produceMessage) => _produceMessage = produceMessage;
 
-    public async Task<MResponse> Execute(JsonElement json)
+    public async Task<MResponse> Execute(JsonElement json, string cid)
     {
         Logger.Debug(TAG, "Processing request...");
 
@@ -27,11 +27,7 @@ public class PersonalDataHandler : AHandler, IHandler, IPersonalDataHandler
 
             Logger.Debug(TAG, $"Forwarding DTO to the database for accessToken");
 
-            var fetchProfile_payload = new MUnit
-            {
-                Event = "fetch_profile",
-                Data = json
-            };
+            var fetchProfile_payload = new MUnit { Event = "fetch_profile", CorrelationId = cid, Data = json };
             string fetchProfile_payloadString = JsonSerializer.Serialize(fetchProfile_payload);
 
             Logger.Info(TAG, "Forwarding request to Database Service...");
