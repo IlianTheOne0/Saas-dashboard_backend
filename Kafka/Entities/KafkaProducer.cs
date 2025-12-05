@@ -23,7 +23,7 @@ public class KafkaProducer : IKafkaProducer, IDisposable
         _producer = new ProducerBuilder<Null, string>(config).SetKeySerializer(Serializers.Null).SetValueSerializer(Serializers.Utf8).Build();
     }
 
-    public async Task SendMessageAsync(string message)
+    public async Task SendMessage(string message)
     {
         try
         {

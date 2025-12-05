@@ -52,16 +52,7 @@ public abstract class Base
             Logger.Info(TAG, "Processing message logic...");
             string planeResponse = await ProcessMessage(plainMessage);
 
-            if (!string.IsNullOrWhiteSpace(planeResponse) && _producers != null)
-            {
-                Logger.Debug(TAG, "Encrypting response...");
-                string encryptedResponse = SecurityService.Encrpyt(planeResponse);
-
-                Logger.Info(TAG, "Sending response to Kafka...");
-                if (_producers.ContainsKey("database")) { await _producers["database"].SendMessageAsync(encryptedResponse); }
-                Logger.Info(TAG, "Response sent successfully.");
-            }
-            else { Logger.Warn(TAG, "No response generated or Producer is null. Skipping reply."); }
+            if (string.IsNullOrWhiteSpace(planeResponse)) { Logger.Warn(TAG, "No response generated or Producer is null. Skipping reply."); }
         }
         catch (Exception error) { Logger.Error(TAG, "Error processing message pipeline", error); }
         finally { stopWatch.Stop(); Logger.Info(TAG, $"<<< Cycle finished in {stopWatch.ElapsedMilliseconds}ms."); }
@@ -80,7 +71,7 @@ public abstract class Base
             var producer = producerEntry.Value;
 
             string encryptedMessage = SecurityService.Encrpyt(message);
-            await producer.SendMessageAsync(encryptedMessage);
+            await producer.SendMessage(encryptedMessage);
         }
         else
         {
