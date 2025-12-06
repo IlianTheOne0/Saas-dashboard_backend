@@ -9,7 +9,7 @@ internal class KafkaConsumer
     {
         BootstrapServers = "localhost:9092",
         GroupId = "auth",
-        AutoOffsetReset = AutoOffsetReset.Earliest,
+        AutoOffsetReset = AutoOffsetReset.Latest,
         EnableAutoCommit = true,
         SessionTimeoutMs = 6000
     };
