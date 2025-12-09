@@ -7,11 +7,19 @@ using Supabase.Postgrest.Models;
 public class MSupabaseProfile : BaseModel
 {
     [PrimaryKey("id", shouldInsert: true)]
-    public string Id { get; set; }
+    public string FId { get; set; }
 
     [Column("name")]
     public string? Name { get; set; }
+    [Column("username")]
+    public string? Username { get; set; }
 
     [Column("avatar_url")]
     public string? AvatarUrl { get; set; }
+    [Column("role")]
+    public string? Role { get; set; }
+    [Column("group_id")]
+    public string? FGroupId { get; set; }
+    [Column("is_online")]
+    public bool? IsOnline { get; set; }
 }

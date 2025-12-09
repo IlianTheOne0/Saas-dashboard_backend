@@ -4,7 +4,6 @@ using Service.Interfaces;
 using Service.Models;
 using Utils;
 
-using Supabase.Gotrue;
 using System.Text.Json;
 
 public class AuthRegisterHandler : AHandler, IHandler

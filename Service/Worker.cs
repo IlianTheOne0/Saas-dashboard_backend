@@ -59,8 +59,11 @@ public class Worker : Base
         AuthLoginHandler AuthLoginHandler = new AuthLoginHandler(RAuth);
         AuthRecoveryPasswordHandler AuthRecoveryPasswordHandler = new AuthRecoveryPasswordHandler(RAuth);
         AuthNewPasswordHandler AuthNewPasswordHandler = new AuthNewPasswordHandler(RAuth);
-
+        
         UserFetchProfileHandler UserFetchProfileHandler = new UserFetchProfileHandler(RUser);
+        UserFetchNonFavContactsHandler UserFetchNonFavContactsHandler = new UserFetchNonFavContactsHandler(RUser);
+        UserFetchFavContactsHandler UserFetchFavContactsHandler = new UserFetchFavContactsHandler(RUser);
+        UserStarContactHandler UserStarContactHandler = new UserStarContactHandler(RUser);
 
         _handlers = new Dictionary<string, Func<JsonElement, string, Task<string>>>
         {
@@ -107,7 +110,37 @@ public class Worker : Base
                 {
                     Logger.Debug(TAG, "Executing 'fetch_profile'...");
                     var response = await UserFetchProfileHandler.Execute(data);
+
                     return CreateMUnitResponse("fetch_profile-answer", cid, response);
+                }
+            },
+
+            {
+                "fetch_non_favourite_contacts",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Executing 'fetch_non_favourite_contacts'...");
+                    var response = await UserFetchNonFavContactsHandler.Execute(data);
+                    return CreateMUnitResponse("fetch_non_favourite_contacts-answer", cid, response);
+                }
+            },
+            {
+                "fetch_favourite_contacts",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Executing 'fetch_favourite_contacts'...");
+                    var response = await UserFetchFavContactsHandler.Execute(data);
+                    return CreateMUnitResponse("fetch_favourite_contacts-answer", cid, response);
+                }
+            },
+
+            {
+                "star_contact",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Executing 'star_contact'...");
+                    await UserStarContactHandler.Execute(data);
+                    return String.Empty;
                 }
             }
         };

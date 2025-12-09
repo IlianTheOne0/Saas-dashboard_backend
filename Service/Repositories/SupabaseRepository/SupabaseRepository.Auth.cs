@@ -27,8 +27,18 @@ public partial class SupabaseRepository : ISupabaseRepositoryAuth
             createdUserId = response.User.Id;
             Logger.Debug(TAG_AUTH, $"Auth User Created. ID: {createdUserId}");
 
-            MSupabaseProfile newProfile = new MSupabaseProfile { Id = createdUserId, Name = name, };
+            MSupabaseGroups? group = await SupabaseConnection!.SupabaseClient.From<MSupabaseGroups>().Single();
+            MSupabaseProfile newProfile = new MSupabaseProfile { FId = createdUserId, Name = name, Username = $"{name}#{createdUserId.Trim().Split("-")[0]}", FGroupId = group!.Id };
             await SupabaseConnection!.SupabaseClient.From<MSupabaseProfile>().Insert(newProfile);
+            Logger.Debug(TAG_AUTH, $"Profile was created!");
+
+            if (group.ProfileIds == null) { group.ProfileIds = new List<string>(); }
+            group.ProfileIds!.Add(createdUserId);
+            await SupabaseConnection!.SupabaseClient.From<MSupabaseGroups>().Upsert(group);
+            Logger.Debug(TAG_AUTH, $"Profile in the group was added");
+            
+            await SupabaseConnection!.SupabaseClient.From<MSupabaseContacts>().Insert(new MSupabaseContacts { FId = createdUserId });
+            Logger.Debug(TAG_AUTH, $"Profile's contacts was added");
 
             Logger.Info(TAG_AUTH, "Profile inserted successfully.");
             return true;
