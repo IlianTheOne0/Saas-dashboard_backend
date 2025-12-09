@@ -65,10 +65,11 @@ public class PersonalDataHandler : AHandler, IHandler, IPersonalDataHandler
             (
                 new PersonalDataResultDto
                 {
-                    Id = GetValue(profileData, "Id") ?? String.Empty,
-                    Email = GetValue(profileData, "Email") ?? string.Empty,
-                    Name = GetValue(profileData, "Name") ?? string.Empty,
-                    AvatarUrl = GetValue(profileData, "AvatarUrl") ?? string.Empty
+                    Id = GetValue<string>(profileData, "Id") ?? String.Empty,
+                    Email = GetValue<string>(profileData, "Email") ?? string.Empty,
+                    Name = GetValue<string>(profileData, "Name") ?? string.Empty,
+                    AvatarUrl = GetValue<string>(profileData, "AvatarUrl") ?? string.Empty,
+                    IsOnline = GetValue<bool>(profileData, "IsOnline")
                 }
             )
         };
@@ -78,14 +79,25 @@ public class PersonalDataHandler : AHandler, IHandler, IPersonalDataHandler
         return result;
     }
 
-    private string? GetValue(JsonElement element, string key)
+    private T? GetValue<T>(JsonElement element, string key)
     {
-        if (element.ValueKind == JsonValueKind.Null || element.ValueKind == JsonValueKind.Undefined) return null;
-        if (element.TryGetProperty(key, out var value)) { return value.ValueKind == JsonValueKind.Null ? null : value.GetString(); }
+        if (element.ValueKind == JsonValueKind.Null || element.ValueKind == JsonValueKind.Undefined) return default;
 
-        string camelKey = char.ToLower(key[0]) + key.Substring(1);
-        if (element.TryGetProperty(camelKey, out value)) { return value.ValueKind == JsonValueKind.Null ? null : value.GetString(); }
+        JsonElement value;
+        bool found = element.TryGetProperty(key, out value);
 
-        return null;
+        if (!found)
+        {
+            string camelKey = char.ToLower(key[0]) + key.Substring(1);
+            found = element.TryGetProperty(camelKey, out value);
+        }
+
+        if (found && value.ValueKind != JsonValueKind.Null)
+        {
+            if (typeof(T) == typeof(bool)) { return (T)(object)value.GetBoolean(); }
+            if (typeof(T) == typeof(string)) { return (T)(object)value.GetString(); }
+        }
+
+        return default;
     }
 }

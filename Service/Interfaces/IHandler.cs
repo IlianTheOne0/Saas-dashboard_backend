@@ -6,5 +6,5 @@ using System.Text.Json;
 
 public interface IHandler
 {
-    public Task<MResponse> Execute(JsonElement datam, string cid);
+    Task<MResponse> Execute(JsonElement json, string cid);
 }

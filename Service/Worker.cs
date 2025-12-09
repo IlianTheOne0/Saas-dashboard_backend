@@ -56,6 +56,7 @@ public class Worker : Base
         Logger.Debug(TAG, "Registering Handlers...");
 
         PersonalDataHandler personalDataHandler = new PersonalDataHandler(produceMessage);
+        ContactsHandler contactsHandler = new ContactsHandler(produceMessage);
 
         _handlers = new Dictionary<string, Func<JsonElement, string, Task<string>>>
         {
@@ -64,7 +65,8 @@ public class Worker : Base
                 async (data, cid) =>
                 {
                     Logger.Debug(TAG, "Executing 'get_personal_data'...");
-                    MResponse response = await personalDataHandler.Execute(data, cid);
+                    
+                    await personalDataHandler.Execute(data, cid);
                     return string.Empty;
                 }
             },
@@ -75,6 +77,47 @@ public class Worker : Base
                     Logger.Debug(TAG, "Received 'fetch_profile-answer'");
                     MResponse response = personalDataHandler.SetProfile(data);
                     return CreateMUnitResponse("get_personal_data-answer", cid, response);
+                }
+            },
+
+            {
+                "get_all_contacts",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Executing 'get_all_contacts'...");
+                    await contactsHandler.Execute(data, cid, true, true);
+                    return string.Empty;
+                }
+            },
+            {
+                "fetch_non_favourite_contacts-answer",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Received 'fetch_non_favourite_contacts-answer'");
+                    MResponse? response = contactsHandler.SetNonFavouriteContacts(data, cid);
+
+                    if (response != null) { return CreateMUnitResponse("get_all_contacts-answer", cid, response); }
+                    return string.Empty;
+                }
+            },
+            {
+                "fetch_favourite_contacts-answer",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Received 'fetch_favourite_contacts-answer'");
+                    MResponse? response = contactsHandler.SetFavouriteContacts(data, cid);
+
+                    if (response != null) { return CreateMUnitResponse("get_all_contacts-answer", cid, response); } return string.Empty;
+                }
+            },
+
+            {
+                "star_contact",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Executing 'star_contact'...");
+                    await produceMessage("database", JsonSerializer.Serialize(new MUnit { Event = "star_contact", CorrelationId = cid, Data = data }));
+                    return string.Empty;
                 }
             }
         };
