@@ -6,7 +6,7 @@ using Utils;
 
 public partial class SupabaseRepository : ISupabaseRepositoryUser
 {
-    private const string TAG_USER = "SUPABASE-REPO-AUTH";
+    private const string TAG_USER = "SUPABASE-REPO-USER";
 
     public async Task<PersonalDataResultDto?> FetchProfile(string accessToken, string? contactId)
     {
@@ -188,5 +188,89 @@ public partial class SupabaseRepository : ISupabaseRepositoryUser
             return false;
         }
         catch (Exception error) { Logger.Error(TAG_USER, $"Avatar deletion failed: {error.Message}"); return false; }
+    }
+
+    public async Task<List<MSupabaseEvent>> FetchCalendarEvents(string accessToken)
+    {
+        Logger.Debug(TAG_USER, "Fetching calendar events...");
+        try
+        {
+            var userResponse = await SupabaseConnection!.SupabaseClient.Auth.GetUser(accessToken);
+            if (userResponse == null || userResponse.Id == null) { throw new Exception("Invalid Access Token"); }
+
+            var response = await SupabaseConnection.SupabaseClient.From<MSupabaseEvent>().Where(_event => _event.UserId == userResponse.Id).Get();
+
+            return response.Models;
+        }
+        catch (Exception error) { Logger.Error(TAG_USER, $"Fetch Events failed: {error.Message}"); return new List<MSupabaseEvent>(); }
+    }
+    public async Task<bool> AddCalendarEvent(string accessToken, CalendarEventDto eventData)
+    {
+        Logger.Debug(TAG_USER, "Adding new calendar event...");
+        try
+        {
+            var userResponse = await SupabaseConnection!.SupabaseClient.Auth.GetUser(accessToken);
+            if (userResponse == null || userResponse.Id == null) { Logger.Warn(TAG_USER, "Invalid Access Token."); return false; }
+
+            var eventForCreator = new MSupabaseEvent
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserId = userResponse.Id,
+                Title = eventData.Title,
+                Description = eventData.Description,
+                StartTime = eventData.StartTime,
+                EndTime = eventData.EndTime,
+                Priority = eventData.Priority,
+                Color = eventData.Color,
+                Attendees = eventData.Attendees ?? new List<object>()
+            };
+
+            await SupabaseConnection.SupabaseClient.From<MSupabaseEvent>().Insert(eventForCreator);
+
+            if (eventData.AttendeeIds != null && eventData.AttendeeIds.Count > 0)
+            {
+                Logger.Info(TAG_USER, $"Distributing event to {eventData.AttendeeIds.Count} attendees...");
+
+                foreach (var attendeeId in eventData.AttendeeIds)
+                {
+                    if (attendeeId == userResponse.Id) { continue; }
+
+                    var eventForAttendee = new MSupabaseEvent
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        UserId = attendeeId,
+                        Title = eventData.Title,
+                        Description = eventData.Description,
+                        StartTime = eventData.StartTime,
+                        EndTime = eventData.EndTime,
+                        Priority = eventData.Priority,
+                        Color = eventData.Color,
+                        Attendees = eventData.Attendees ?? new List<object>()
+                    };
+
+                    await SupabaseConnection.SupabaseClient.From<MSupabaseEvent>().Insert(eventForAttendee);
+                }
+            }
+
+            Logger.Info(TAG_USER, "Event added successfully.");
+            return true;
+        }
+        catch (Exception error) { Logger.Error(TAG_USER, $"Failed to add event: {error.Message}"); return false; }
+    }
+
+    public async Task<bool> DeleteCalendarEvent(string accessToken, string eventId)
+    {
+        Logger.Debug(TAG_USER, $"Deleting calendar event: {eventId}");
+        try
+        {
+            var userResponse = await SupabaseConnection!.SupabaseClient.Auth.GetUser(accessToken);
+            if (userResponse == null || userResponse.Id == null) { Logger.Warn(TAG_USER, "Invalid Access Token."); return false; }
+
+            await SupabaseConnection.SupabaseClient.From<MSupabaseEvent>().Where(Event => Event.Id == eventId && Event.UserId == userResponse.Id).Delete();
+
+            Logger.Info(TAG_USER, "Event deleted successfully.");
+            return true;
+        }
+        catch (Exception error) { Logger.Error(TAG_USER, $"Failed to delete event: {error.Message}"); return false; }
     }
 }

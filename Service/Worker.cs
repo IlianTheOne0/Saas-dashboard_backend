@@ -71,6 +71,10 @@ public class Worker : Base
         UserUploadAvatarHandler userUploadAvatar = new UserUploadAvatarHandler(RUser);
         UserDeleteAvatarHandler userDeleteAvatar = new UserDeleteAvatarHandler(RUser);
 
+        CalendarFetchHandler calendarFetch = new CalendarFetchHandler(RUser);
+        CalendarAddHandler calendarAdd = new CalendarAddHandler(RUser);
+        CalendarDeleteHandler calendarDelete = new CalendarDeleteHandler(RUser);
+
         _handlers = new Dictionary<string, Func<JsonElement, string, Task<string>>>
         {
             {
@@ -179,14 +183,44 @@ public class Worker : Base
                 "upload_avatar",
                 async (data, cid) =>
                 {
-                     return CreateMUnitResponse("upload_avatar-answer", cid, await userUploadAvatar.Execute(data));
+                    Logger.Debug(TAG, "Executing 'upload_avatar'...");
+                    return CreateMUnitResponse("upload_avatar-answer", cid, await userUploadAvatar.Execute(data));
                 }
             },
             {
                 "delete_avatar",
                 async (data, cid) =>
                 {
-                     return CreateMUnitResponse("delete_avatar-answer", cid, await userDeleteAvatar.Execute(data));
+                    Logger.Debug(TAG, "Executing 'delete_avatar'...");
+                    return CreateMUnitResponse("delete_avatar-answer", cid, await userDeleteAvatar.Execute(data));
+                }
+            },
+
+            {
+                "fetch_calendar_events",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Executing 'fetch_calendar_events'...");
+                    var response = await calendarFetch.Execute(data);
+                    return CreateMUnitResponse("fetch_calendar_events-answer", cid, response);
+                }
+            },
+            {
+                "add_calendar_event",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Executing 'add_calendar_event'...");
+                    var response = await calendarAdd.Execute(data);
+                    return CreateMUnitResponse("add_calendar_event-answer", cid, response);
+                }
+            },
+            {
+                "delete_calendar_event",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Executing 'delete_calendar_event'...");
+                    var response = await calendarDelete.Execute(data);
+                    return CreateMUnitResponse("delete_calendar_event-answer", cid, response);
                 }
             }
         };

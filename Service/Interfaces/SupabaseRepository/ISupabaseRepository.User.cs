@@ -14,4 +14,8 @@ public interface ISupabaseRepositoryUser
 
     Task<string?> UpdateAvatar(string accessToken, string base64Image, string fileName);
     Task<bool> DeleteAvatar(string accessToken);
+
+    Task<List<MSupabaseEvent>> FetchCalendarEvents(string accessToken);
+    Task<bool> AddCalendarEvent(string accessToken, CalendarEventDto eventData);
+    Task<bool> DeleteCalendarEvent(string accessToken, string eventId);
 }
