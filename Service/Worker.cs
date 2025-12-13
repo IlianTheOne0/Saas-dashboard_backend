@@ -119,7 +119,74 @@ public class Worker : Base
                     await produceMessage("database", JsonSerializer.Serialize(new MUnit { Event = "star_contact", CorrelationId = cid, Data = data }));
                     return string.Empty;
                 }
-            }
+            },
+
+            {
+                "update_profile",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Routing 'update_profile' to database...");
+                    await produceMessage("database", JsonSerializer.Serialize(new MUnit { Event = "update_profile", CorrelationId = cid, Data = data }));
+                    return string.Empty;
+                }
+            },
+            {
+                "update_profile-answer",
+                async (data, cid) => CreateMUnitResponse("update_profile-answer", cid, data.Deserialize<MResponse>())
+            },
+            {
+                "update_email",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Routing 'update_email' to database...");
+                    await produceMessage("database", JsonSerializer.Serialize(new MUnit { Event = "update_email", CorrelationId = cid, Data = data }));
+                    return string.Empty;
+                }
+            },
+            {
+                "update_email-answer",
+                async (data, cid) => CreateMUnitResponse("update_email-answer", cid, data.Deserialize<MResponse>())
+            },
+            {
+                "change_password",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Routing 'change_password' to database...");
+                    await produceMessage("database", JsonSerializer.Serialize(new MUnit { Event = "change_password", CorrelationId = cid, Data = data }));
+                    return string.Empty;
+                }
+            },
+            {
+                "change_password-answer",
+                async (data, cid) => CreateMUnitResponse("change_password-answer", cid, data.Deserialize<MResponse>())
+            },
+
+            {
+                "upload_avatar",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Routing 'upload_avatar' to database...");
+                    await produceMessage("database", JsonSerializer.Serialize(new MUnit { Event = "upload_avatar", CorrelationId = cid, Data = data }));
+                    return string.Empty;
+                }
+            },
+            {
+                "upload_avatar-answer",
+                async (data, cid) => CreateMUnitResponse("upload_avatar-answer", cid, data.Deserialize<MResponse>())
+            },
+            {
+                "delete_avatar",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Routing 'delete_avatar' to database...");
+                    await produceMessage("database", JsonSerializer.Serialize(new MUnit { Event = "delete_avatar", CorrelationId = cid, Data = data }));
+                    return string.Empty;
+                }
+            },
+            {
+                "delete_avatar-answer",
+                async (data, cid) => CreateMUnitResponse("delete_avatar-answer", cid, data.Deserialize<MResponse>())
+            },
         };
 
         Logger.Info(TAG, $"Handlers registered: {_handlers.Count}");
