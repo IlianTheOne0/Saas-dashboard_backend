@@ -65,7 +65,7 @@ public class Worker : Base
                 async (data, cid) =>
                 {
                     Logger.Debug(TAG, "Executing 'get_personal_data'...");
-                    
+
                     await personalDataHandler.Execute(data, cid);
                     return string.Empty;
                 }
@@ -185,10 +185,65 @@ public class Worker : Base
             },
             {
                 "delete_avatar-answer",
-                async (data, cid) => CreateMUnitResponse("delete_avatar-answer", cid, data.Deserialize<MResponse>())
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Routing 'delete_avatar-answer' to response...");
+                    return CreateMUnitResponse("delete_avatar-answer", cid, data.Deserialize<MResponse>());
+                }
             },
-        };
 
-        Logger.Info(TAG, $"Handlers registered: {_handlers.Count}");
+            {
+                "fetch_calendar_events",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Routing 'get_calendar_events' to database...");
+                    await produceMessage("database", JsonSerializer.Serialize(new MUnit { Event = "fetch_calendar_events", CorrelationId = cid, Data = data }));
+                    return string.Empty;
+                }
+            },
+            {
+                "fetch_calendar_events-answer",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Routing 'fetch_calendar_events-answer' to response...");
+                    MResponse? response = data.Deserialize<MResponse>();
+                    return CreateMUnitResponse("fetch_calendar_events-answer", cid, response);
+                }
+            },
+            {
+                "add_calendar_event",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Routing 'add_calendar_event' to database...");
+                    await produceMessage("database", JsonSerializer.Serialize(new MUnit { Event = "add_calendar_event", CorrelationId = cid, Data = data }));
+                    return string.Empty;
+                }
+            },
+            {
+                "add_calendar_event-answer",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Routing 'add_calendar_event-answer' to response...");
+                    return CreateMUnitResponse("add_calendar_event-answer", cid, data.Deserialize<MResponse>());
+                }
+            },
+            {
+                "delete_calendar_event",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Routing 'delete_calendar_event' to database...");
+                    await produceMessage("database", JsonSerializer.Serialize(new MUnit { Event = "delete_calendar_event", CorrelationId = cid, Data = data }));
+                    return string.Empty;
+                }
+            },
+            {
+                "delete_calendar_event-answer",
+                async (data, cid) =>
+                {
+                    Logger.Debug(TAG, "Routing 'delete_calendar_event-answer' to response...");
+                    return CreateMUnitResponse("delete_calendar_event-answer", cid, data.Deserialize<MResponse>());
+                }
+            }
+        };
     }
 }
