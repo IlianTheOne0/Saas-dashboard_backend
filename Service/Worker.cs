@@ -59,11 +59,17 @@ public class Worker : Base
         AuthLoginHandler AuthLoginHandler = new AuthLoginHandler(RAuth);
         AuthRecoveryPasswordHandler AuthRecoveryPasswordHandler = new AuthRecoveryPasswordHandler(RAuth);
         AuthNewPasswordHandler AuthNewPasswordHandler = new AuthNewPasswordHandler(RAuth);
-        
+        AuthUpdateEmailHandler authUpdateEmail = new AuthUpdateEmailHandler(RAuth);
+        AuthChangePasswordHandler authChangePassword = new AuthChangePasswordHandler(RAuth);
+
         UserFetchProfileHandler UserFetchProfileHandler = new UserFetchProfileHandler(RUser);
         UserFetchNonFavContactsHandler UserFetchNonFavContactsHandler = new UserFetchNonFavContactsHandler(RUser);
         UserFetchFavContactsHandler UserFetchFavContactsHandler = new UserFetchFavContactsHandler(RUser);
         UserStarContactHandler UserStarContactHandler = new UserStarContactHandler(RUser);
+        UserUpdateProfileHandler userUpdateProfile = new UserUpdateProfileHandler(RUser);
+
+        UserUploadAvatarHandler userUploadAvatar = new UserUploadAvatarHandler(RUser);
+        UserDeleteAvatarHandler userDeleteAvatar = new UserDeleteAvatarHandler(RUser);
 
         _handlers = new Dictionary<string, Func<JsonElement, string, Task<string>>>
         {
@@ -141,6 +147,46 @@ public class Worker : Base
                     Logger.Debug(TAG, "Executing 'star_contact'...");
                     await UserStarContactHandler.Execute(data);
                     return String.Empty;
+                }
+            },
+
+            {
+                "update_profile", async (data, cid) =>
+                {
+                     Logger.Debug(TAG, "Executing 'update_profile'...");
+                     var response = await userUpdateProfile.Execute(data);
+                     return CreateMUnitResponse("update_profile-answer", cid, response);
+                }
+            },
+            {
+                "update_email", async (data, cid) =>
+                {
+                     Logger.Debug(TAG, "Executing 'update_email'...");
+                     var response = await authUpdateEmail.Execute(data);
+                     return CreateMUnitResponse("update_email-answer", cid, response);
+                }
+            },
+            {
+                "change_password", async (data, cid) =>
+                {
+                     Logger.Debug(TAG, "Executing 'change_password'...");
+                     var response = await authChangePassword.Execute(data);
+                     return CreateMUnitResponse("change_password-answer", cid, response);
+                }
+            },
+
+            {
+                "upload_avatar",
+                async (data, cid) =>
+                {
+                     return CreateMUnitResponse("upload_avatar-answer", cid, await userUploadAvatar.Execute(data));
+                }
+            },
+            {
+                "delete_avatar",
+                async (data, cid) =>
+                {
+                     return CreateMUnitResponse("delete_avatar-answer", cid, await userDeleteAvatar.Execute(data));
                 }
             }
         };

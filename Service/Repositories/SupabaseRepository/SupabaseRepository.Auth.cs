@@ -103,4 +103,28 @@ public partial class SupabaseRepository : ISupabaseRepositoryAuth
         }
         catch (Exception error) { throw new Exception($"Failed to set the new password: {error.Message}", error); }
     }
+
+    public async Task<bool> UpdateEmail(string accessToken, string newEmail)
+    {
+        try
+        {
+            Logger.Debug(TAG_AUTH, $"Updating email to: {newEmail}");
+            var attrs = new UserAttributes { Email = newEmail };
+            var response = await SupabaseConnection!.SupabaseClient.Auth.Update(attrs);
+            return response != null;
+        }
+        catch (Exception error) { throw new Exception($"Failed to update email: {error.Message}", error); }
+    }
+
+    public async Task<bool> ChangePassword(string accessToken, string newPassword)
+    {
+        try
+        {
+            Logger.Debug(TAG_AUTH, "Changing password for authenticated user");
+            var attrs = new UserAttributes { Password = newPassword };
+            var response = await SupabaseConnection!.SupabaseClient.Auth.Update(attrs);
+            return response != null;
+        }
+        catch (Exception error) { throw new Exception($"Failed to change password: {error.Message}", error); }
+    }
 }

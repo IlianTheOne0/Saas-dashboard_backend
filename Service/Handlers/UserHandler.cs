@@ -190,3 +190,70 @@ public class UserStarContactHandler : AHandler, IHandler
         catch (Exception error) { Logger.Error(TAG, "Exception during star contact execution", error); return new MResponse { status = "Error", message = error.Message }; }
     }
 }
+
+public class UserUpdateProfileHandler : AHandler, IHandler
+{
+    private const string TAG = "USER-UPDATE-PROFILE";
+    private ISupabaseRepositoryUser _repository;
+
+    public UserUpdateProfileHandler(ISupabaseRepositoryUser repository) { _repository = repository; }
+
+    public async Task<MResponse> Execute(JsonElement json)
+    {
+        Logger.Debug(TAG, "Processing request...");
+        try
+        {
+            if (json.ValueKind == JsonValueKind.Undefined || json.ValueKind == JsonValueKind.Null) { return new MResponse { status = "Error", message = "No data provided" }; }
+
+            UpdateProfileDto data = _execute<UpdateProfileDto>(json);
+
+            bool success = await _repository.UpdateProfile(data.AccessToken, data);
+
+            if (success) { return new MResponse { status = "Success", message = "Profile updated successfully" }; }
+            return new MResponse { status = "Error", message = "Failed to update profile" };
+        }
+        catch (Exception error) { Logger.Error(TAG, "Exception", error); return new MResponse { status = "Error", message = error.Message }; }
+    }
+}
+
+public class UserUploadAvatarHandler : AHandler, IHandler
+{
+    private const string TAG = "USER-UPLOAD-AVATAR";
+    private ISupabaseRepositoryUser _repository;
+    public UserUploadAvatarHandler(ISupabaseRepositoryUser repository) { _repository = repository; }
+
+    public async Task<MResponse> Execute(JsonElement json)
+    {
+        Logger.Debug(TAG, "Processing request...");
+        try
+        {
+            AvatarUpdateDto data = _execute<AvatarUpdateDto>(json);
+            string? newUrl = await _repository.UpdateAvatar(data.AccessToken, data.Base64Image, data.FileName);
+
+            if (newUrl != null) { return new MResponse { status = "Success", message = "Avatar uploaded", data = JsonSerializer.SerializeToElement(newUrl) }; }
+            return new MResponse { status = "Error", message = "Failed to upload avatar" };
+        }
+        catch (Exception error) { return new MResponse { status = "Error", message = error.Message }; }
+    }
+}
+
+public class UserDeleteAvatarHandler : AHandler, IHandler
+{
+    private const string TAG = "USER-DELETE-AVATAR";
+    private ISupabaseRepositoryUser _repository;
+    public UserDeleteAvatarHandler(ISupabaseRepositoryUser repository) { _repository = repository; }
+
+    public async Task<MResponse> Execute(JsonElement json)
+    {
+        Logger.Debug(TAG, "Processing request...");
+        try
+        {
+            AvatarDeleteDto data = _execute<AvatarDeleteDto>(json);
+            bool success = await _repository.DeleteAvatar(data.AccessToken);
+
+            if (success) { return new MResponse { status = "Success", message = "Avatar deleted" }; }
+            return new MResponse { status = "Error", message = "Failed to delete avatar" };
+        }
+        catch (Exception error) { return new MResponse { status = "Error", message = error.Message }; }
+    }
+}

@@ -22,4 +22,10 @@ public class MSupabaseProfile : BaseModel
     public string? FGroupId { get; set; }
     [Column("is_online")]
     public bool? IsOnline { get; set; }
+    [Column("location")]
+    public string? Location { get; set; }
+    [Column("timezone")]
+    public string? Timezone { get; set; }
+    [Column("phone")]
+    public string? Phone { get; set; }
 }

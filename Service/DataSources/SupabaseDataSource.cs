@@ -48,5 +48,28 @@ public class SupabaseDataSource : ISupabaseDataSource
             return bool.Parse(response.Content);
         }
         catch (Exception error) { Logger.Error(TAG, $"Error checking user existence: {error.Message}"); return false; }
-    }   
+    }
+
+    public async Task<string?> UploadAvatar(byte[] fileData, string fileName)
+    {
+        try
+        {
+            var bucket = SupabaseClient.Storage.From("avatars");
+            await bucket.Upload(fileData, fileName, new Supabase.Storage.FileOptions { Upsert = true });
+
+            return bucket.GetPublicUrl(fileName);
+        }
+        catch (Exception error) { Logger.Error(TAG, $"Failed to upload avatar: {error.Message}"); return null; }
+    }
+
+    public async Task<bool> DeleteAvatar(string fileName)
+    {
+        try
+        {
+            var bucket = SupabaseClient.Storage.From("avatars");
+            await bucket.Remove(new List<string> { fileName });
+            return true;
+        }
+        catch (Exception error) { Logger.Error(TAG, $"Failed to delete avatar: {error.Message}"); return false; }
+    }
 }

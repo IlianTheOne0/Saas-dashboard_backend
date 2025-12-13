@@ -113,3 +113,41 @@ public class AuthNewPasswordHandler : AHandler, IHandler
         catch (Exception error) { Logger.Error(TAG, "Exception during recovery", error); return new MResponse { status = "Error", message = error.Message }; }
     }
 }
+
+public class AuthUpdateEmailHandler : AHandler, IHandler
+{
+    private const string TAG = "AUTH-UPDATE-EMAIL";
+    private ISupabaseRepositoryAuth _repository;
+    public AuthUpdateEmailHandler(ISupabaseRepositoryAuth repository) { _repository = repository; }
+
+    public async Task<MResponse> Execute(JsonElement json)
+    {
+        try
+        {
+            UpdateEmailDto data = _execute<UpdateEmailDto>(json);
+            bool success = await _repository.UpdateEmail(data.AccessToken, data.NewEmail);
+            if (success) { return new MResponse { status = "Success", message = "Confirmation links sent to email." }; }
+            return new MResponse { status = "Error", message = "Failed to update email" };
+        }
+        catch (Exception error) { return new MResponse { status = "Error", message = error.Message }; }
+    }
+}
+
+public class AuthChangePasswordHandler : AHandler, IHandler
+{
+    private const string TAG = "AUTH-CHANGE-PASSWORD";
+    private ISupabaseRepositoryAuth _repository;
+    public AuthChangePasswordHandler(ISupabaseRepositoryAuth repository) { _repository = repository; }
+
+    public async Task<MResponse> Execute(JsonElement json)
+    {
+        try
+        {
+            ChangePasswordDto data = _execute<ChangePasswordDto>(json);
+            bool success = await _repository.ChangePassword(data.AccessToken, data.NewPassword);
+            if (success) { return new MResponse { status = "Success", message = "Password changed successfully" }; }
+            return new MResponse { status = "Error", message = "Failed to change password" };
+        }
+        catch (Exception error) { return new MResponse { status = "Error", message = error.Message }; }
+    }
+}

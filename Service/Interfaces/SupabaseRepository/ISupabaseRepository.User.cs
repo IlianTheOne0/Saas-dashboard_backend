@@ -10,4 +10,8 @@ public interface ISupabaseRepositoryUser
     Task<MSupabaseContacts?> FetchFavContacts(string accessToken);
 
     Task<bool> UpdateFavContacts(string accessToken, List<string> contacts);
+    Task<bool> UpdateProfile(string accessToken, UpdateProfileDto data);
+
+    Task<string?> UpdateAvatar(string accessToken, string base64Image, string fileName);
+    Task<bool> DeleteAvatar(string accessToken);
 }
