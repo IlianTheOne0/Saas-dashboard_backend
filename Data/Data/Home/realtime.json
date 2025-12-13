@@ -1,0 +1,250 @@
+﻿{
+  "rightNow": {
+    "activeUsers": 289,
+    "newVisitorPercent": 43,
+    "returningVisitorPercent": 57
+  },
+  "topLocations": [
+    {
+      "latitude": 40.7128,
+      "longitude": -74.0060,
+      "name": "New York",
+      "value": 100,
+      "color": "#3E6BEC"
+    },
+    {
+      "latitude": 51.5074,
+      "longitude": -0.1278,
+      "name": "London",
+      "value": 50,
+      "color": "#62CA76"
+    },
+    {
+      "latitude": -23.5505,
+      "longitude": -46.6333,
+      "name": "São Paulo",
+      "value": 80,
+      "color": "#FDDE69"
+    },
+    {
+      "latitude": 35.8617,
+      "longitude": 104.1954,
+      "name": "China",
+      "value": 60,
+      "color": "#E45851"
+    },
+    {
+      "latitude": -33.8688,
+      "longitude": 151.2093,
+      "name": "Sydney",
+      "value": 30,
+      "color": "#1E1F20"
+    }
+  ],
+  "pageViews": {
+    "perMinute": [
+      {
+        "category": "-55min",
+        "direct": 40,
+        "referral": 20,
+        "organic": 30
+      },
+      {
+        "category": "-50min",
+        "direct": 50,
+        "referral": 15,
+        "organic": 45
+      },
+      {
+        "category": "-45min",
+        "direct": 45,
+        "referral": 25,
+        "organic": 35
+      },
+      {
+        "category": "-40min",
+        "direct": 60,
+        "referral": 30,
+        "organic": 20
+      },
+      {
+        "category": "-35min",
+        "direct": 35,
+        "referral": 20,
+        "organic": 55
+      },
+      {
+        "category": "-30min",
+        "direct": 25,
+        "referral": 35,
+        "organic": 40
+      },
+      {
+        "category": "-25min",
+        "direct": 30,
+        "referral": 45,
+        "organic": 35
+      },
+      {
+        "category": "-20min",
+        "direct": 55,
+        "referral": 30,
+        "organic": 25
+      },
+      {
+        "category": "-15min",
+        "direct": 40,
+        "referral": 15,
+        "organic": 45
+      },
+      {
+        "category": "-10min",
+        "direct": 45,
+        "referral": 25,
+        "organic": 30
+      },
+      {
+        "category": "-5min",
+        "direct": 50,
+        "referral": 30,
+        "organic": 25
+      },
+      {
+        "category": "-1min",
+        "direct": 35,
+        "referral": 40,
+        "organic": 20
+      }
+    ],
+    "perSecond": [
+      {
+        "category": "-60s",
+        "direct": 20,
+        "referral": 10,
+        "organic": 15
+      },
+      {
+        "category": "-55s",
+        "direct": 25,
+        "referral": 12,
+        "organic": 18
+      },
+      {
+        "category": "-50s",
+        "direct": 30,
+        "referral": 15,
+        "organic": 20
+      },
+      {
+        "category": "-45s",
+        "direct": 22,
+        "referral": 18,
+        "organic": 25
+      },
+      {
+        "category": "-40s",
+        "direct": 28,
+        "referral": 20,
+        "organic": 22
+      },
+      {
+        "category": "-35s",
+        "direct": 35,
+        "referral": 22,
+        "organic": 28
+      },
+      {
+        "category": "-30s",
+        "direct": 32,
+        "referral": 25,
+        "organic": 30
+      },
+      {
+        "category": "-25s",
+        "direct": 40,
+        "referral": 28,
+        "organic": 35
+      },
+      {
+        "category": "-20s",
+        "direct": 38,
+        "referral": 30,
+        "organic": 32
+      },
+      {
+        "category": "-15s",
+        "direct": 45,
+        "referral": 35,
+        "organic": 38
+      },
+      {
+        "category": "-10s",
+        "direct": 42,
+        "referral": 32,
+        "organic": 35
+      },
+      {
+        "category": "-5s",
+        "direct": 48,
+        "referral": 38,
+        "organic": 40
+      }
+    ]
+  },
+  "sidebar": {
+    "deviceChart": [
+      {
+        "category": "Desktop",
+        "value": 63,
+        "color": "#FFFFFF",
+        "opacity": 1
+      },
+      {
+        "category": "Mobile",
+        "value": 27,
+        "color": "#FFFFFF",
+        "opacity": 0.3
+      },
+      {
+        "category": "Tablet",
+        "value": 10,
+        "color": "#FFFFFF",
+        "opacity": 0.1
+      }
+    ],
+    "deviceStats": [
+      {
+        "name": "Desktop",
+        "value": "63%",
+        "change": "10%",
+        "isIncrease": true,
+        "icon": "desktop-monitor.svg"
+      },
+      {
+        "name": "Mobile",
+        "value": "27%",
+        "change": "13%",
+        "isIncrease": false,
+        "icon": "mobile-phone.svg"
+      }
+    ],
+    "referrals": [
+      {
+        "name": "ui8.net",
+        "value": 43
+      },
+      {
+        "name": "dribbble.com",
+        "value": 38
+      },
+      {
+        "name": "behance.net",
+        "value": 11
+      },
+      {
+        "name": "pinterest.com",
+        "value": 9
+      }
+    ]
+  }
+}

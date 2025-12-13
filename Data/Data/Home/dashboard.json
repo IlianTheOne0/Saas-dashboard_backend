@@ -1,0 +1,491 @@
+﻿{
+  "highlights": [
+    {
+      "defaultIconPath": "./assets/images/"
+    },
+    {
+      "title": "total sessions",
+      "value": "36.1K",
+      "bckgColor": "success",
+      "iconPath": "sessions.svg"
+    },
+    {
+      "title": "total visitors",
+      "value": "2,642",
+      "bckgColor": "primary",
+      "iconPath": "visitors.svg",
+      "isIncrease": true,
+      "percentage": "10%"
+    },
+    {
+      "title": "avg time spend",
+      "value": "3.21",
+      "bckgColor": "error",
+      "iconPath": "time.svg",
+      "isIncrease": false,
+      "percentage": "3%"
+    }
+  ],
+  "chart": {
+    "today": [
+      {
+        "time": "9:00",
+        "value": 15
+      },
+      {
+        "time": "10:00",
+        "value": 25
+      },
+      {
+        "time": "11:00",
+        "value": 38
+      },
+      {
+        "time": "12:00",
+        "value": 30
+      },
+      {
+        "time": "13:00",
+        "value": 18
+      },
+      {
+        "time": "14:00",
+        "value": 25
+      },
+      {
+        "time": "15:00",
+        "value": 32
+      },
+      {
+        "time": "16:00",
+        "value": 55
+      },
+      {
+        "time": "17:00",
+        "value": 45
+      },
+      {
+        "time": "18:00",
+        "value": 38
+      },
+      {
+        "time": "19:00",
+        "value": 50
+      },
+      {
+        "time": "20:00",
+        "value": 58
+      }
+    ],
+    "7d": [
+      {
+        "time": "Mon",
+        "value": 45
+      },
+      {
+        "time": "Tue",
+        "value": 52
+      },
+      {
+        "time": "Wed",
+        "value": 38
+      },
+      {
+        "time": "Thu",
+        "value": 24
+      },
+      {
+        "time": "Fri",
+        "value": 33
+      },
+      {
+        "time": "Sat",
+        "value": 50
+      },
+      {
+        "time": "Sun",
+        "value": 65
+      }
+    ],
+    "2w": [
+      {
+        "time": "W1-Mon",
+        "value": 30
+      },
+      {
+        "time": "W1-Thu",
+        "value": 45
+      },
+      {
+        "time": "W1-Sun",
+        "value": 60
+      },
+      {
+        "time": "W2-Mon",
+        "value": 40
+      },
+      {
+        "time": "W2-Thu",
+        "value": 35
+      },
+      {
+        "time": "W2-Sun",
+        "value": 55
+      }
+    ],
+    "1m": [
+      {
+        "time": "Week 1",
+        "value": 150
+      },
+      {
+        "time": "Week 2",
+        "value": 180
+      },
+      {
+        "time": "Week 3",
+        "value": 160
+      },
+      {
+        "time": "Week 4",
+        "value": 210
+      }
+    ]
+  },
+  "bottomCards": [
+    {
+      "id": "new-users",
+      "title": "New Users",
+      "value": "1,501m",
+      "color": "#E45851",
+      "data": {
+        "today": [
+          {
+            "index": 1,
+            "value": 2
+          },
+          {
+            "index": 2,
+            "value": 5
+          },
+          {
+            "index": 3,
+            "value": 4
+          },
+          {
+            "index": 4,
+            "value": 8
+          },
+          {
+            "index": 5,
+            "value": 6
+          },
+          {
+            "index": 6,
+            "value": 9
+          },
+          {
+            "index": 7,
+            "value": 12
+          }
+        ],
+        "7d": [
+          {
+            "index": 1,
+            "value": 10
+          },
+          {
+            "index": 2,
+            "value": 12
+          },
+          {
+            "index": 3,
+            "value": 11
+          },
+          {
+            "index": 4,
+            "value": 15
+          },
+          {
+            "index": 5,
+            "value": 20
+          },
+          {
+            "index": 6,
+            "value": 18
+          },
+          {
+            "index": 7,
+            "value": 22
+          }
+        ],
+        "2w": [
+          {
+            "index": 1,
+            "value": 15
+          },
+          {
+            "index": 2,
+            "value": 18
+          },
+          {
+            "index": 3,
+            "value": 14
+          },
+          {
+            "index": 4,
+            "value": 22
+          },
+          {
+            "index": 5,
+            "value": 19
+          },
+          {
+            "index": 6,
+            "value": 25
+          }
+        ],
+        "1m": [
+          {
+            "index": 1,
+            "value": 40
+          },
+          {
+            "index": 2,
+            "value": 55
+          },
+          {
+            "index": 3,
+            "value": 48
+          },
+          {
+            "index": 4,
+            "value": 60
+          }
+        ]
+      }
+    },
+    {
+      "id": "bounce-rate",
+      "title": "Bounce Rate",
+      "value": "0.66%",
+      "color": "#FDDE69",
+      "data": {
+        "today": [
+          {
+            "index": 1,
+            "value": 15
+          },
+          {
+            "index": 2,
+            "value": 16
+          },
+          {
+            "index": 3,
+            "value": 14
+          },
+          {
+            "index": 4,
+            "value": 15
+          },
+          {
+            "index": 5,
+            "value": 18
+          },
+          {
+            "index": 6,
+            "value": 17
+          },
+          {
+            "index": 7,
+            "value": 16
+          }
+        ],
+        "7d": [
+          {
+            "index": 1,
+            "value": 20
+          },
+          {
+            "index": 2,
+            "value": 22
+          },
+          {
+            "index": 3,
+            "value": 18
+          },
+          {
+            "index": 4,
+            "value": 19
+          },
+          {
+            "index": 5,
+            "value": 25
+          },
+          {
+            "index": 6,
+            "value": 24
+          },
+          {
+            "index": 7,
+            "value": 30
+          }
+        ],
+        "2w": [
+          {
+            "index": 1,
+            "value": 28
+          },
+          {
+            "index": 2,
+            "value": 26
+          },
+          {
+            "index": 3,
+            "value": 30
+          },
+          {
+            "index": 4,
+            "value": 25
+          },
+          {
+            "index": 5,
+            "value": 29
+          },
+          {
+            "index": 6,
+            "value": 32
+          }
+        ],
+        "1m": [
+          {
+            "index": 1,
+            "value": 55
+          },
+          {
+            "index": 2,
+            "value": 50
+          },
+          {
+            "index": 3,
+            "value": 58
+          },
+          {
+            "index": 4,
+            "value": 52
+          }
+        ]
+      }
+    }
+  ],
+  "sidebar": {
+    "audience": {
+      "platforms": [
+        {
+          "name": "Windows",
+          "value": "45%",
+          "icon": "windows.svg"
+        },
+        {
+          "name": "Mac OS",
+          "value": "25%",
+          "icon": "apple.svg"
+        },
+        {
+          "name": "Linux",
+          "value": "10%",
+          "icon": "linux.svg"
+        },
+        {
+          "name": "Android",
+          "value": "20%",
+          "icon": "android.svg"
+        }
+      ],
+      "browsers": [
+        {
+          "name": "Chrome",
+          "value": "68%",
+          "icon": "chrome.svg"
+        },
+        {
+          "name": "Edge",
+          "value": "15%",
+          "icon": "edge.svg"
+        },
+        {
+          "name": "Opera",
+          "value": "6%",
+          "icon": "opera.svg"
+        },
+        {
+          "name": "Firefox",
+          "value": "11%",
+          "icon": "firefox.svg"
+        }
+      ]
+    },
+    "realtime": {
+      "activeUsers": 289,
+      "chartData": [
+        {
+          "index": 1,
+          "value": 10
+        },
+        {
+          "index": 2,
+          "value": 15
+        },
+        {
+          "index": 3,
+          "value": 12
+        },
+        {
+          "index": 4,
+          "value": 20
+        },
+        {
+          "index": 5,
+          "value": 18
+        },
+        {
+          "index": 6,
+          "value": 25
+        },
+        {
+          "index": 7,
+          "value": 22
+        },
+        {
+          "index": 8,
+          "value": 30
+        },
+        {
+          "index": 9,
+          "value": 28
+        },
+        {
+          "index": 10,
+          "value": 35
+        }
+      ]
+    },
+    "languages": [
+      {
+        "name": "English",
+        "value": 43,
+        "color": "#FDDE69"
+      },
+      {
+        "name": "Chinese",
+        "value": 38,
+        "color": "#62CA76"
+      },
+      {
+        "name": "Spanish",
+        "value": 19,
+        "color": "#E45851"
+      }
+    ]
+  }
+}

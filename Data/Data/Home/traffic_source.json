@@ -1,0 +1,434 @@
+﻿{
+  "stats": [
+    {
+      "id": 1,
+      "label": "Users",
+      "values": {
+        "today": "13.2k",
+        "7d": "42.5k",
+        "2w": "80.1k",
+        "1m": "150k"
+      },
+      "change": "10%",
+      "isIncrease": true
+    },
+    {
+      "id": 2,
+      "label": "Sessions",
+      "values": {
+        "today": "18.1k",
+        "7d": "55.2k",
+        "2w": "102k",
+        "1m": "210k"
+      },
+      "change": "13%",
+      "isIncrease": false
+    },
+    {
+      "id": 3,
+      "label": "Bounce Rate",
+      "values": {
+        "today": "0.71%",
+        "7d": "0.65%",
+        "2w": "0.50%",
+        "1m": "0.45%"
+      },
+      "change": "6%",
+      "isIncrease": true
+    },
+    {
+      "id": 4,
+      "label": "Session Duration",
+      "values": {
+        "today": "1m 06s",
+        "7d": "1m 12s",
+        "2w": "1m 20s",
+        "1m": "1m 45s"
+      },
+      "change": "15%",
+      "isIncrease": false
+    }
+  ],
+  "trafficChart": {
+    "today": [
+      {
+        "time": "9:00",
+        "direct": 10,
+        "organic": 5
+      },
+      {
+        "time": "12:00",
+        "direct": 40,
+        "organic": 30
+      },
+      {
+        "time": "15:00",
+        "direct": 40,
+        "organic": 35
+      },
+      {
+        "time": "18:00",
+        "direct": 45,
+        "organic": 35
+      },
+      {
+        "time": "21:00",
+        "direct": 60,
+        "organic": 30
+      }
+    ],
+    "7d": [
+      {
+        "time": "Mon",
+        "direct": 50,
+        "organic": 20
+      },
+      {
+        "time": "Tue",
+        "direct": 40,
+        "organic": 30
+      },
+      {
+        "time": "Wed",
+        "direct": 60,
+        "organic": 40
+      },
+      {
+        "time": "Thu",
+        "direct": 30,
+        "organic": 10
+      },
+      {
+        "time": "Fri",
+        "direct": 70,
+        "organic": 50
+      },
+      {
+        "time": "Sat",
+        "direct": 45,
+        "organic": 25
+      },
+      {
+        "time": "Sun",
+        "direct": 55,
+        "organic": 35
+      }
+    ],
+    "2w": [
+      {
+        "time": "W1",
+        "direct": 100,
+        "organic": 50
+      },
+      {
+        "time": "W2",
+        "direct": 120,
+        "organic": 80
+      }
+    ],
+    "1m": [
+      {
+        "time": "W1",
+        "direct": 200,
+        "organic": 150
+      },
+      {
+        "time": "W2",
+        "direct": 250,
+        "organic": 180
+      },
+      {
+        "time": "W3",
+        "direct": 180,
+        "organic": 120
+      },
+      {
+        "time": "W4",
+        "direct": 300,
+        "organic": 200
+      }
+    ]
+  },
+  "bottomCards": [
+    {
+      "id": "returning-customers",
+      "title": "Returning Customers",
+      "values": {
+        "today": "10.3k",
+        "7d": "35k",
+        "2w": "68k",
+        "1m": "120k"
+      },
+      "color": "#3E6BEC",
+      "chartData": {
+        "today": [
+          {
+            "category": "1",
+            "value": 10
+          },
+          {
+            "category": "2",
+            "value": 12
+          },
+          {
+            "category": "3",
+            "value": 11
+          },
+          {
+            "category": "4",
+            "value": 15
+          },
+          {
+            "category": "5",
+            "value": 13
+          },
+          {
+            "category": "6",
+            "value": 20
+          }
+        ],
+        "7d": [
+          {
+            "category": "M",
+            "value": 20
+          },
+          {
+            "category": "T",
+            "value": 25
+          },
+          {
+            "category": "W",
+            "value": 18
+          },
+          {
+            "category": "T",
+            "value": 30
+          },
+          {
+            "category": "F",
+            "value": 22
+          },
+          {
+            "category": "S",
+            "value": 28
+          }
+        ],
+        "2w": [
+          {
+            "category": "1",
+            "value": 50
+          },
+          {
+            "category": "2",
+            "value": 60
+          }
+        ],
+        "1m": [
+          {
+            "category": "1",
+            "value": 100
+          },
+          {
+            "category": "2",
+            "value": 120
+          }
+        ]
+      }
+    },
+    {
+      "id": "new-users",
+      "title": "New Users",
+      "values": {
+        "today": "2.9k",
+        "7d": "8.5k",
+        "2w": "15k",
+        "1m": "32k"
+      },
+      "color": "#FDDE69",
+      "chartData": {
+        "today": [
+          {
+            "category": "1",
+            "value": 15
+          },
+          {
+            "category": "2",
+            "value": 16
+          },
+          {
+            "category": "3",
+            "value": 14
+          },
+          {
+            "category": "4",
+            "value": 10
+          },
+          {
+            "category": "5",
+            "value": 12
+          },
+          {
+            "category": "6",
+            "value": 18
+          }
+        ],
+        "7d": [
+          {
+            "category": "M",
+            "value": 30
+          },
+          {
+            "category": "T",
+            "value": 20
+          },
+          {
+            "category": "W",
+            "value": 25
+          },
+          {
+            "category": "T",
+            "value": 35
+          },
+          {
+            "category": "F",
+            "value": 15
+          },
+          {
+            "category": "S",
+            "value": 40
+          }
+        ],
+        "2w": [
+          {
+            "category": "1",
+            "value": 40
+          },
+          {
+            "category": "2",
+            "value": 45
+          }
+        ],
+        "1m": [
+          {
+            "category": "1",
+            "value": 90
+          },
+          {
+            "category": "2",
+            "value": 80
+          }
+        ]
+      }
+    }
+  ],
+  "sidebar": {
+    "audience": {
+      "platforms": [
+        {
+          "name": "Windows",
+          "value": "45%",
+          "icon": "windows.svg"
+        },
+        {
+          "name": "Mac OS",
+          "value": "25%",
+          "icon": "apple.svg"
+        },
+        {
+          "name": "Linux",
+          "value": "10%",
+          "icon": "linux.svg"
+        },
+        {
+          "name": "Android",
+          "value": "20%",
+          "icon": "android.svg"
+        }
+      ],
+      "browsers": [
+        {
+          "name": "Chrome",
+          "value": "68%",
+          "icon": "chrome.svg"
+        },
+        {
+          "name": "Edge",
+          "value": "15%",
+          "icon": "edge.svg"
+        },
+        {
+          "name": "Opera",
+          "value": "6%",
+          "icon": "opera.svg"
+        },
+        {
+          "name": "Firefox",
+          "value": "11%",
+          "icon": "firefox.svg"
+        }
+      ]
+    },
+    "realtime": {
+      "activeUsers": 289,
+      "chartData": [
+        {
+          "index": 1,
+          "value": 10
+        },
+        {
+          "index": 2,
+          "value": 15
+        },
+        {
+          "index": 3,
+          "value": 12
+        },
+        {
+          "index": 4,
+          "value": 20
+        },
+        {
+          "index": 5,
+          "value": 18
+        },
+        {
+          "index": 6,
+          "value": 25
+        },
+        {
+          "index": 7,
+          "value": 22
+        },
+        {
+          "index": 8,
+          "value": 30
+        },
+        {
+          "index": 9,
+          "value": 28
+        },
+        {
+          "index": 10,
+          "value": 35
+        }
+      ]
+    },
+    "languages": [
+      {
+        "name": "English",
+        "value": 43,
+        "color": "#FDDE69"
+      },
+      {
+        "name": "Chinese",
+        "value": 38,
+        "color": "#62CA76"
+      },
+      {
+        "name": "Spanish",
+        "value": 19,
+        "color": "#E45851"
+      }
+    ]
+  }
+}

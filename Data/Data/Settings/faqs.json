@@ -1,0 +1,18 @@
+﻿[
+  {
+    "question": "How do I change my account password?",
+    "answer": "Go to the 'Security & Privacy' tab in settings. Click the 'Send Reset Email' button to receive a secure link to reset your credentials."
+  },
+  {
+    "question": "Can I manage multiple teams?",
+    "answer": "Currently, this dashboard supports single-user analytics. Team management features are coming in the Q4 update."
+  },
+  {
+    "question": "Where can I find my API keys?",
+    "answer": "API keys are located in the Developer section. If you do not have access, please contact your workspace administrator."
+  },
+  {
+    "question": "How is the data encrypted?",
+    "answer": "We use AES-256 encryption for all data at rest and TLS 1.3 for data in transit to ensure maximum security."
+  }
+]

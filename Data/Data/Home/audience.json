@@ -1,0 +1,186 @@
+﻿{
+  "stats": [
+    {
+      "id": 1,
+      "title": "Returning Customers",
+      "data": {
+        "1 month": 51,
+        "3 months": 45,
+        "6 months": 60
+      },
+      "color": "#FDDE69"
+    },
+    {
+      "id": 2,
+      "title": "New Customers",
+      "data": {
+        "1 month": 49,
+        "3 months": 55,
+        "6 months": 40
+      },
+      "color": "#3E6BEC"
+    },
+    {
+      "id": 3,
+      "title": "Bounce Rate",
+      "data": {
+        "1 month": 53,
+        "3 months": 42,
+        "6 months": 35
+      },
+      "color": "#62CA76"
+    }
+  ],
+  "locations": {
+    "mapData": [
+      {
+        "latitude": 37.0902,
+        "longitude": -95.7129,
+        "name": "United States",
+        "value": 100,
+        "color": "#3E6BEC"
+      },
+      {
+        "latitude": 61.5240,
+        "longitude": 105.3188,
+        "name": "Russia",
+        "value": 50,
+        "color": "#E45851"
+      },
+      {
+        "latitude": -14.2350,
+        "longitude": -51.9253,
+        "name": "Brasil",
+        "value": 30,
+        "color": "#FDDE69"
+      },
+      {
+        "latitude": 40.4637,
+        "longitude": -3.7492,
+        "name": "Spain",
+        "value": 20,
+        "color": "#62CA76"
+      },
+      {
+        "latitude": -25.2744,
+        "longitude": 133.7751,
+        "name": "Australia",
+        "value": 20,
+        "color": "#000"
+      }
+    ],
+    "list": [
+      {
+        "name": "United States",
+        "value": 43,
+        "color": "#3E6BEC"
+      },
+      {
+        "name": "Russia",
+        "value": 28,
+        "color": "#E45851"
+      },
+      {
+        "name": "Brasil",
+        "value": 11,
+        "color": "#FDDE69"
+      },
+      {
+        "name": "Spain",
+        "value": 9,
+        "color": "#62CA76"
+      },
+      {
+        "name": "Australia",
+        "value": 9,
+        "color": "#000"
+      }
+    ]
+  },
+  "systems": [
+    {
+      "title": "Operating System",
+      "items": [
+        {
+          "name": "Windows",
+          "value": 76,
+          "icon": "windows.svg",
+          "color": "#62CA76"
+        },
+        {
+          "name": "Macintosh",
+          "value": 24,
+          "icon": "apple.svg",
+          "color": "#E45851"
+        }
+      ]
+    },
+    {
+      "title": "Top Browser",
+      "items": [
+        {
+          "name": "Chrome",
+          "value": 76,
+          "icon": "chrome.svg",
+          "color": "#3E6BEC"
+        },
+        {
+          "name": "Safari",
+          "value": 24,
+          "icon": "safari.svg",
+          "color": "#FDDE69"
+        }
+      ]
+    }
+  ],
+  "sidebar": {
+    "resolutions": [
+      {
+        "name": "1920x1080",
+        "value": 43
+      },
+      {
+        "name": "1440x900",
+        "value": 38
+      },
+      {
+        "name": "2560x1440",
+        "value": 11
+      },
+      {
+        "name": "1680x1050",
+        "value": 9
+      }
+    ],
+    "age": {
+      "chartData": [
+        {
+          "category": "25-40 Years",
+          "value": 63,
+          "color": "#FFFFFF"
+        },
+        {
+          "category": "Over 40 Years",
+          "value": 27,
+          "color": "#A0B4F6"
+        }
+      ],
+      "legend": [
+        {
+          "label": "25-40 Years",
+          "value": "63%",
+          "isIncrease": true,
+          "color": "#FFFFFF",
+          "iconColor": "#FFFFFF"
+        },
+        {
+          "label": "Over 40 Years",
+          "value": "27%",
+          "isIncrease": false,
+          "color": "#A0B4F6",
+          "iconColor": "#A0B4F6"
+        }
+      ]
+    }
+  }
+}
